@@ -1,0 +1,49 @@
+name: twitch
+
+services:
+    db:
+        container_name: postgres
+        image: postgres:latest
+        # restart: always
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            # - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+        ports:
+            - 5433:5432
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        networks:
+            - twitch-backend
+
+    redis:
+        container_name: redis
+        image: redis:5.0
+        # restart: always
+        ports:
+            - 6379:6379
+        # command: redis-server --requirepass ${REDIS_PASSWORD}
+        volumes:
+            - redis_data:/data
+        networks:
+            - twitch-backend
+
+    minio:
+        image: minio/minio
+        ports:
+            - '9000:9000'
+            - '9001:9001'
+        environment:
+            - MINIO_ROOT_USER=minioadmin
+            - MINIO_ROOT_PASSWORD=minioadmin
+        volumes:
+            - minio_data:/data
+        command: server /data --console-address ":9001"
+
+volumes:
+    postgres_data:
+    redis_data:
+    minio_data:
+
+networks:
+    twitch-backend:
