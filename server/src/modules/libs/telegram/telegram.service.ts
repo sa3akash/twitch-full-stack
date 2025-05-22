@@ -39,7 +39,7 @@ export class TelegramService extends Telegraf {
 			if (!authToken) {
 				await ctx.replyWithHTML(MESSAGES.invalidToken)
 
-				return;
+				return
 			}
 
 			const hasExpired = new Date(authToken.expiresIn) < new Date()
@@ -73,7 +73,7 @@ export class TelegramService extends Telegraf {
 	public async onMe(@Ctx() ctx: Context) {
 		const chatId = ctx.chat?.id.toString() as string
 
-		const user = await this.findUserByChatId(chatId);
+		const user = await this.findUserByChatId(chatId)
 
 		const followersCount = await this.prismaService.follow.count({
 			where: {
@@ -107,11 +107,11 @@ export class TelegramService extends Telegraf {
 				.map(follow => MESSAGES.follows(follow.following))
 				.join('\n')
 
-			const message = `<b>🌟 Каналы на который вы подписаны:</b>\n\n${followsList}`
+			const message = `<b>🌟 Channels you're subscribed to:</b>\n\n${followsList}`
 
 			await ctx.replyWithHTML(message)
 		} else {
-			await ctx.replyWithHTML('<b>❌ У вас нет подписок.</b>')
+			await ctx.replyWithHTML('<b>❌ You have no subscriptions.</b>')
 		}
 	}
 
@@ -154,13 +154,15 @@ export class TelegramService extends Telegraf {
 	public async sendNewFollowing(chatId: string, follower: User) {
 		const user = await this.findUserByChatId(chatId)
 
-		await this.telegram.sendMessage(
-			chatId,
-			MESSAGES.newFollowing(follower, user!.followings.length),
-			{
-				parse_mode: 'HTML'
-			}
-		)
+		if (user) {
+			await this.telegram.sendMessage(
+				chatId,
+				MESSAGES.newFollowing(follower, user.followings.length),
+				{
+					parse_mode: 'HTML'
+				}
+			)
+		}
 	}
 
 	public async sendNewSponsorship(

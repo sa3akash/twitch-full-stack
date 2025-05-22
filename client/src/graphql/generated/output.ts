@@ -506,6 +506,13 @@ export type VerificationInput = {
   token: Scalars['String']['input'];
 };
 
+export type FindChannelByUsernameQueryVariables = Exact<{
+  username: Scalars['String']['input'];
+}>;
+
+
+export type FindChannelByUsernameQuery = { __typename?: 'Query', findChannelByUsername: { __typename?: 'UserModel', id: string, username: string, displayName: string, avatar?: string | null, bio?: string | null, isVerified: boolean, socialLinks: Array<{ __typename?: 'SocialLinkModel', title: string, url: string }>, stream: { __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatPremiumFollowersOnly: boolean, category: { __typename?: 'CategoryModel', id: string, title: string } }, followings: Array<{ __typename?: 'FollowModel', id: string }> } };
+
 export type FindAllStreamsQueryVariables = Exact<{
   filters: FiltersInput;
 }>;
@@ -514,6 +521,71 @@ export type FindAllStreamsQueryVariables = Exact<{
 export type FindAllStreamsQuery = { __typename?: 'Query', findAllStream: Array<{ __typename?: 'StreamModel', title: string, thumbnailUrl?: string | null, isLive: boolean, user: { __typename?: 'UserModel', username: string, avatar?: string | null, isVerified: boolean }, category: { __typename?: 'CategoryModel', title: string, slug: string } }> };
 
 
+export const FindChannelByUsernameDocument = gql`
+    query FindChannelByUsername($username: String!) {
+  findChannelByUsername(username: $username) {
+    id
+    username
+    displayName
+    avatar
+    bio
+    isVerified
+    socialLinks {
+      title
+      url
+    }
+    stream {
+      id
+      title
+      thumbnailUrl
+      isLive
+      isChatEnabled
+      isChatFollowersOnly
+      isChatPremiumFollowersOnly
+      category {
+        id
+        title
+      }
+    }
+    followings {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindChannelByUsernameQuery__
+ *
+ * To run a query within a React component, call `useFindChannelByUsernameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindChannelByUsernameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindChannelByUsernameQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useFindChannelByUsernameQuery(baseOptions: Apollo.QueryHookOptions<FindChannelByUsernameQuery, FindChannelByUsernameQueryVariables> & ({ variables: FindChannelByUsernameQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindChannelByUsernameQuery, FindChannelByUsernameQueryVariables>(FindChannelByUsernameDocument, options);
+      }
+export function useFindChannelByUsernameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindChannelByUsernameQuery, FindChannelByUsernameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindChannelByUsernameQuery, FindChannelByUsernameQueryVariables>(FindChannelByUsernameDocument, options);
+        }
+export function useFindChannelByUsernameSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FindChannelByUsernameQuery, FindChannelByUsernameQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindChannelByUsernameQuery, FindChannelByUsernameQueryVariables>(FindChannelByUsernameDocument, options);
+        }
+export type FindChannelByUsernameQueryHookResult = ReturnType<typeof useFindChannelByUsernameQuery>;
+export type FindChannelByUsernameLazyQueryHookResult = ReturnType<typeof useFindChannelByUsernameLazyQuery>;
+export type FindChannelByUsernameSuspenseQueryHookResult = ReturnType<typeof useFindChannelByUsernameSuspenseQuery>;
+export type FindChannelByUsernameQueryResult = Apollo.QueryResult<FindChannelByUsernameQuery, FindChannelByUsernameQueryVariables>;
 export const FindAllStreamsDocument = gql`
     query FindAllStreams($filters: FiltersInput!) {
   findAllStream(filters: $filters) {

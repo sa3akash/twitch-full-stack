@@ -1,5 +1,5 @@
-import { SponsorshipPlan, User } from "@/prisma/generated";
-import { SessionMetadata } from "@/src/shared/types/session-metadata.types";
+import { SponsorshipPlan, User } from '@/prisma/generated'
+import { SessionMetadata } from '@/src/shared/types/session-metadata.types'
 
 export const MESSAGES = {
 	welcome:

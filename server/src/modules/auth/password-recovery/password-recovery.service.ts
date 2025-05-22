@@ -12,10 +12,10 @@ import { generateToken } from '@/src/shared/utils/generate-token.utils'
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util'
 
 import { MailService } from '../../libs/mail/mail.service'
+import { TelegramService } from '../../libs/telegram/telegram.service'
 
 import { NewPasswordInput } from './inputs/new-password.input'
 import { ResetPasswordInput } from './inputs/password-recovery.input'
-import { TelegramService } from '../../libs/telegram/telegram.service'
 
 @Injectable()
 export class PasswordRecoveryService {
@@ -23,7 +23,6 @@ export class PasswordRecoveryService {
 		private readonly prismaService: PrismaService,
 		private readonly mailService: MailService,
 		private readonly telegramService: TelegramService
-
 	) {}
 
 	public async resetPassword(
@@ -51,8 +50,7 @@ export class PasswordRecoveryService {
 			metadata
 		)
 
-
-				if (
+		if (
 			resetToken.user?.notificationSettings?.telegramNotifications &&
 			resetToken.user.telegramId
 		) {

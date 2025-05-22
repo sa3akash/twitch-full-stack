@@ -16,26 +16,6 @@ export class GqlAuthGuard implements CanActivate {
 		const ctx = GqlExecutionContext.create(context)
 		const request = ctx.getContext().req
 
-		// const bearerHeader = request.headers.authorization;
-
-		// if (bearerHeader) {
-		// 	const user = await this.prismaService.user.findUnique({
-		// 		where: {
-		// 			id: bearerHeader
-		// 		}
-		// 	})
-
-		// 	console.log(user)
-
-		// 	if (!user) {
-		// 		throw new UnauthorizedException('Unathorized')
-		// 	}
-
-		// 	request.user = user
-
-		// 	return true
-		// }
-
 		if (typeof request.session.userId === 'undefined') {
 			throw new UnauthorizedException('Unathorized')
 		}

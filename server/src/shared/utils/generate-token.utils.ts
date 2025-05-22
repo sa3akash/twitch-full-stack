@@ -43,7 +43,7 @@ export async function generateToken(
 				include: {
 					notificationSettings: true
 				}
-			},
+			}
 		}
 	})
 

@@ -160,4 +160,17 @@ export class NotificationService {
 			}
 		})
 	}
+
+	public async createVerifyChannel(userId: string) {
+		const notification = await this.prismaService.notification.create({
+			data: {
+				message: `<b className='font-medium'>Congratulations!</b>
+			  <p>Your channel is verified, and now there will be a checkmark next to your channel.</p>`,
+				type: NotificationType.VERIFIED_CHANNEL,
+				userId
+			}
+		})
+
+		return notification
+	}
 }
