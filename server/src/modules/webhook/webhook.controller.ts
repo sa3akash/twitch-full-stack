@@ -40,10 +40,7 @@ export class WebhookController {
 			)
 		}
 
-		const event = this.webhookService.constructStripeEvent(
-			rawBody,
-			sig
-		)
+		const event = this.webhookService.constructStripeEvent(rawBody, sig)
 
 		await this.webhookService.receiveWebhookStripe(event)
 	}
