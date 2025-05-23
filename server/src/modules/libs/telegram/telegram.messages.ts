@@ -69,7 +69,7 @@ export const MESSAGES = {
 	newSponsorship: (plan: SponsorshipPlan, sponsor: User) =>
 		`<b>🎉 New Sponsor!</b>\n\n` +
 		`You received a new sponsorship for the plan <b>${plan.title}</b>.\n` +
-		`💰 Amount: <b>${plan.price} ₽</b>\n` +
+		`💰 Amount: <b>${plan.price} $</b>\n` +
 		`👤 Sponsor: <a href="https://sa2stream.com/${sponsor.username}">${sponsor.displayName}</a>\n` +
 		`📅 Sponsorship Date: <b>${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</b>`,
 	enableTwoFactor:
