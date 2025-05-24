@@ -86,6 +86,12 @@ export type ChatMessageModel = {
   userId: Scalars['String']['output'];
 };
 
+export type CreatePlanInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  price: Scalars['Float']['input'];
+  title: Scalars['String']['input'];
+};
+
 export type CreateUserInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -146,6 +152,11 @@ export type LoginInput = {
   pin?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type MakePaymentModel = {
+  __typename?: 'MakePaymentModel';
+  url: Scalars['String']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   changeAvater: Scalars['Boolean']['output'];
@@ -159,6 +170,7 @@ export type Mutation = {
   clearSessionsCookie: Scalars['Boolean']['output'];
   createIngress: Scalars['Boolean']['output'];
   createSocialLink: Scalars['Boolean']['output'];
+  createSponsorshipPlan: Scalars['Boolean']['output'];
   createUser: Scalars['Boolean']['output'];
   deactivate: AuthModel;
   enabledTotp: Scalars['Boolean']['output'];
@@ -166,10 +178,12 @@ export type Mutation = {
   generateStreamToken: GenerateTokenStreamModel;
   login: AuthModel;
   logout: Scalars['Boolean']['output'];
+  makePayment: MakePaymentModel;
   newPassword: Scalars['Boolean']['output'];
   removeAvater: Scalars['Boolean']['output'];
   removeSession: Scalars['Boolean']['output'];
   removeSocialLink: Scalars['Boolean']['output'];
+  removeSponsorshipPlan: Scalars['Boolean']['output'];
   removeStreamThumbnail: Scalars['Boolean']['output'];
   reorderSocialLinkArray: Scalars['Boolean']['output'];
   resetPassword: Scalars['Boolean']['output'];
@@ -230,6 +244,11 @@ export type MutationCreateSocialLinkArgs = {
 };
 
 
+export type MutationCreateSponsorshipPlanArgs = {
+  data: CreatePlanInput;
+};
+
+
 export type MutationCreateUserArgs = {
   data: CreateUserInput;
 };
@@ -260,6 +279,11 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationMakePaymentArgs = {
+  planId: Scalars['String']['input'];
+};
+
+
 export type MutationNewPasswordArgs = {
   data: NewPasswordInput;
 };
@@ -272,6 +296,11 @@ export type MutationRemoveSessionArgs = {
 
 export type MutationRemoveSocialLinkArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveSponsorshipPlanArgs = {
+  planId: Scalars['String']['input'];
 };
 
 
@@ -342,6 +371,20 @@ export enum NotificationType {
   VerifiedChannel = 'VERIFIED_CHANNEL'
 }
 
+export type PlanModel = {
+  __typename?: 'PlanModel';
+  channel: UserModel;
+  channelId: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  price: Scalars['Float']['output'];
+  stripePlanId: Scalars['String']['output'];
+  stripeProductId: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   disabledTotp: Scalars['Boolean']['output'];
@@ -354,6 +397,9 @@ export type Query = {
   findMessagesByStreamId: Array<ChatMessageModel>;
   findMyFollowers: Array<FollowModel>;
   findMyFollowings: Array<FollowModel>;
+  findMySponsors: Array<SubscriptionModel>;
+  findMySponsorshipPlans: Array<PlanModel>;
+  findMyTransactions: Array<TransactionModel>;
   findNotificationsByUser: Array<NotificationModel>;
   findNotificationsUnreadCount: Scalars['Float']['output'];
   findProfile: UserModel;
@@ -361,6 +407,7 @@ export type Query = {
   findRandomStreams: Array<StreamModel>;
   findRecommendedChannels: Array<UserModel>;
   findSessionByUser: Array<SessionModel>;
+  findSponsorsByChannel: Array<SubscriptionModel>;
   generateOtpSecret: TotpModel;
   getSocialLink: Array<SocialLinkModel>;
   sendDeactivateEmail: Scalars['Boolean']['output'];
@@ -389,6 +436,11 @@ export type QueryFindFollowersCountByChannelArgs = {
 
 export type QueryFindMessagesByStreamIdArgs = {
   streamId: Scalars['String']['input'];
+};
+
+
+export type QueryFindSponsorsByChannelArgs = {
+  channelId: Scalars['String']['input'];
 };
 
 export type ResetPasswordInput = {
@@ -466,6 +518,20 @@ export type SubscriptionChatMessageAddedArgs = {
   streamId: Scalars['String']['input'];
 };
 
+export type SubscriptionModel = {
+  __typename?: 'SubscriptionModel';
+  channel: UserModel;
+  channelId: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  expiresAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  plan: PlanModel;
+  planId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user: UserModel;
+  userId: Scalars['String']['output'];
+};
+
 export type TotpInput = {
   pin: Scalars['String']['input'];
   secret: Scalars['String']['input'];
@@ -476,6 +542,26 @@ export type TotpModel = {
   qrcodeUrl: Scalars['String']['output'];
   secret: Scalars['String']['output'];
 };
+
+export type TransactionModel = {
+  __typename?: 'TransactionModel';
+  amount: Scalars['Float']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  currency: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  status: TransactionStatus;
+  stripeSubscriptionId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user: UserModel;
+  userId: Scalars['String']['output'];
+};
+
+export enum TransactionStatus {
+  Expired = 'EXPIRED',
+  Failed = 'FAILED',
+  Pending = 'PENDING',
+  Success = 'SUCCESS'
+}
 
 export type UserModel = {
   __typename?: 'UserModel';
@@ -495,6 +581,8 @@ export type UserModel = {
   notificationSettings: NotificationSettingsModel;
   notifications: Array<NotificationModel>;
   socialLinks: Array<SocialLinkModel>;
+  sponsorshipPlans: Array<PlanModel>;
+  sponsorshipSubscriptions: Array<SubscriptionModel>;
   stream: StreamModel;
   telegramId?: Maybe<Scalars['String']['output']>;
   totpSecret?: Maybe<Scalars['String']['output']>;
@@ -511,7 +599,7 @@ export type FindChannelByUsernameQueryVariables = Exact<{
 }>;
 
 
-export type FindChannelByUsernameQuery = { __typename?: 'Query', findChannelByUsername: { __typename?: 'UserModel', id: string, username: string, displayName: string, avatar?: string | null, bio?: string | null, isVerified: boolean, socialLinks: Array<{ __typename?: 'SocialLinkModel', title: string, url: string }>, stream: { __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatPremiumFollowersOnly: boolean, category: { __typename?: 'CategoryModel', id: string, title: string } }, followings: Array<{ __typename?: 'FollowModel', id: string }> } };
+export type FindChannelByUsernameQuery = { __typename?: 'Query', findChannelByUsername: { __typename?: 'UserModel', id: string, username: string, displayName: string, avatar?: string | null, bio?: string | null, isVerified: boolean, socialLinks: Array<{ __typename?: 'SocialLinkModel', title: string, url: string }>, stream: { __typename?: 'StreamModel', id: string, title: string, thumbnailUrl?: string | null, isLive: boolean, isChatEnabled: boolean, isChatFollowersOnly: boolean, isChatPremiumFollowersOnly: boolean, category: { __typename?: 'CategoryModel', id: string, title: string } }, sponsorshipPlans: Array<{ __typename?: 'PlanModel', id: string, title: string, description?: string | null, price: number }>, followings: Array<{ __typename?: 'FollowModel', id: string }> } };
 
 export type FindAllStreamsQueryVariables = Exact<{
   filters: FiltersInput;
@@ -546,6 +634,12 @@ export const FindChannelByUsernameDocument = gql`
         id
         title
       }
+    }
+    sponsorshipPlans {
+      id
+      title
+      description
+      price
     }
     followings {
       id

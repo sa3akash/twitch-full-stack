@@ -1,0 +1,3 @@
+Site Key = 0x4AAAAAABeYjIOFKRppoEX1
+
+Secret Key = 0x4AAAAAABeYjB7ppnfMPhpmk12H_FiDfCA

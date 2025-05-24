@@ -55,7 +55,11 @@ export class VerificationService {
 			}
 		})
 
-		return saveSession(req, updatedUser, userAgent)
+		return saveSession(
+			req,
+			updatedUser,
+			userAgent
+		)
 	}
 
 	public async sendVerificationToken(user: User) {

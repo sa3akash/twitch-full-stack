@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import {
 	BadRequestException,
 	ConflictException,
@@ -33,6 +32,7 @@ export class SessionsService {
 		if (!userId) throw new NotFoundException('UserId not found.')
 
 		const keys = await this.redisService.keys('*')
+
 		const userSessions: any[] = []
 
 		for (const key of keys) {
@@ -55,9 +55,10 @@ export class SessionsService {
 
 	public async findCurrent(req: Request): Promise<SessionModel> {
 		const sessionId = req.session.id
-		const sessionData = await this.redisService.get(
-			`${this.configService.getOrThrow<string>('SESSION_FOLDER')}${sessionId}`
-		)
+
+		const key = `${this.configService.getOrThrow<string>('SESSION_FOLDER')}${sessionId}`
+
+		const sessionData = await this.redisService.get(key)
 
 		const session = JSON.parse(sessionData || '')
 

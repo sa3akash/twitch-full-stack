@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import {
   SITE_DESCRIPTION,
@@ -7,17 +7,19 @@ import {
   SITE_NAME,
 } from "@/lib/constants/seo.constants";
 import { APP_URL } from "@/lib/constants/url.constants";
-import MainProviders from "@/providers";
+import { getLocale, getMessages } from "next-intl/server";
+import { ApolloClientProvider } from "@/providers/ApolloClientProvider";
+import { NextIntlClientProvider } from "next-intl";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { GeistSans } from "geist/font/sans";
+import { ThemeProvider } from "@/providers/theme-provider";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+
+const interFont = Inter({
   subsets: ["latin"],
-});
+  variable: '--font-inter'
+})
+
 
 export const metadata: Metadata = {
   title: {
@@ -78,18 +80,30 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
+        className={`${GeistSans.variable} ${interFont.className} antialiased`}
         suppressHydrationWarning
       >
-        <MainProviders>{children}</MainProviders>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextIntlClientProvider messages={messages}>
+            <ApolloClientProvider>{children}</ApolloClientProvider>
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

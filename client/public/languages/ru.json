@@ -173,8 +173,9 @@
 		"backToHome": "Перейти на главную"
 	},
 	"auth": {
+		"heading":"Платформа для видеоигр: UI-образец (на русском)",
 		"register": {
-			"heading": "Регистрация в TeaStream",
+			"heading": "Регистрация",
 			"backButtonLabel": "Есть учетная запись? Войти",
 			"usernameLabel": "Имя пользователя",
 			"usernameDescription": "Под этим именем вас будут знать другие пользователи.",
@@ -193,7 +194,7 @@
 			"errorMessage": "Ошибка при верификации"
 		},
 		"login": {
-			"heading": "Войти в TeaStream",
+			"heading": "Войти",
 			"backButtonLabel": "У вас нет учетной записи? Зарегистрируйтесь!",
 			"loginLabel": "Логин",
 			"loginDescription": "Ваше имя или почта, которые вы вводили при регистрации.",

@@ -313,12 +313,11 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "POSTGRES_URI",
-        "value": null
+        "value": "postgresql://root:123456@localhost:5433/teastream"
       }
     }
   },

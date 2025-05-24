@@ -6,7 +6,11 @@ import type { User } from '@/prisma/generated'
 
 import { getSessionMetadata } from './session-metadata.util'
 
-export function saveSession(req: Request, user: User, userAgent: string) {
+export function saveSession(
+	req: Request,
+	user: User,
+	userAgent: string,
+) {
 	const metadata = getSessionMetadata(req, userAgent)
 
 	return new Promise((resolve, reject) => {
@@ -16,7 +20,7 @@ export function saveSession(req: Request, user: User, userAgent: string) {
 
 		req.session.save(err => {
 			if (err) {
-				return reject(
+				reject(
 					new InternalServerErrorException('Internal server error.')
 				)
 			}

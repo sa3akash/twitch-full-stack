@@ -6,14 +6,10 @@ import { COOKIE_NAME, type Language, defaultLanguage } from './config'
 
 export async function getCurrentLanguage() {
 	const cookiesStore = await cookies()
-
-	const language = cookiesStore.get(COOKIE_NAME)?.value ?? defaultLanguage
-
-	return language
+	return cookiesStore.get(COOKIE_NAME)?.value ?? defaultLanguage
 }
 
 export async function setLanguage(language: Language) {
 	const cookiesStore = await cookies()
-
 	return cookiesStore.set(COOKIE_NAME, language)
 }
