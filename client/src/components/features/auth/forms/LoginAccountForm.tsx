@@ -142,8 +142,8 @@ const LoginAccountForm = () => {
               />
               <div className="flex justify-end mt-2">
                 <Link
-                  href=""
-                  className="inline-block text-right hover:underline text-muted-foreground"
+                  href="/account/recovery"
+                  className="inline-block text-sm text-right hover:underline text-muted-foreground"
                 >
                   Forgot Password?
                 </Link>
