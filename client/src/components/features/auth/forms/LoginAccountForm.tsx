@@ -111,7 +111,7 @@ const LoginAccountForm = () => {
                         placeholder="johndoe"
                         disabled={loading}
                         {...field}
-                        className="h-12"
+                        className="h-11"
                       />
                     </FormControl>
                     <FormDescription>{t("loginDescription")}</FormDescription>
@@ -131,7 +131,7 @@ const LoginAccountForm = () => {
                         type="password"
                         disabled={loading}
                         {...field}
-                        className="h-12"
+                        className="h-11"
                       />
                     </FormControl>
                     <FormDescription>

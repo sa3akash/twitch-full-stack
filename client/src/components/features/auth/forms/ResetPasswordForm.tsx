@@ -84,7 +84,7 @@ const ResetPasswordForm = () => {
                       placeholder="john.doe@example.com"
                       disabled={loading}
                       {...field}
-                      className="h-12"
+                      className="h-11"
                     />
                   </FormControl>
                   <FormDescription>{t("emailDescription")}</FormDescription>
