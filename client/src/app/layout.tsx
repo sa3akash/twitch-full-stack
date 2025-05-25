@@ -13,6 +13,7 @@ import { NextIntlClientProvider } from "next-intl";
 
 import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { Toaster } from "@/components/ui/common/sonner";
 
 
 const interFont = Inter({
@@ -101,7 +102,10 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
-            <ApolloClientProvider>{children}</ApolloClientProvider>
+            <ApolloClientProvider>
+              {children}
+              <Toaster />
+            </ApolloClientProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

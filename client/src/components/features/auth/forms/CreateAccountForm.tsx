@@ -19,6 +19,14 @@ import {
 } from "@/components/ui/common/form";
 import { Input } from "@/components/ui/common/input";
 import { Button } from "@/components/ui/common/Button";
+import { useCreateUserMutation } from "@/graphql/generated/output";
+import { toast } from "sonner";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/common/alert";
+import { CircleCheck } from "lucide-react";
 
 const CreateAccountForm = () => {
   const t = useTranslations("auth.register");
@@ -32,8 +40,22 @@ const CreateAccountForm = () => {
     },
   });
 
+  const [createUser, { loading, error, data }] = useCreateUserMutation({
+    onCompleted: () => {
+      toast.success("user created");
+    },
+    onError(error) {
+      toast.error(t("errorMessage"));
+      toast.error(error.message);
+    },
+  });
+
   const onSubmit = (values: TypeCreateAccountSchema) => {
-    console.log(values);
+    createUser({
+      variables: {
+        data: values,
+      },
+    });
   };
 
   return (
@@ -43,68 +65,76 @@ const CreateAccountForm = () => {
       backButtonHref="/account/login"
       isSigup={true}
     >
-      <Form {...form} >
-             <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">
-               <FormField
-                 control={form.control}
-                 name="username"
-                 render={({ field }) => (
-                   <FormItem>
-                     <FormLabel>{t("usernameLabel")}</FormLabel>
-                     <FormControl>
-                       <Input
-                         placeholder="johndoe"
-                         disabled={false}
-                         {...field}
-                         className="h-12"
-                       />
-                     </FormControl>
-                     <FormDescription>{t("usernameDescription")}</FormDescription>
-                   </FormItem>
-                 )}
-               />
-               <FormField
-                 control={form.control}
-                 name="email"
-                 render={({ field }) => (
-                   <FormItem>
-                     <FormLabel>{t("emailLabel")}</FormLabel>
-                     <FormControl>
-                       <Input
-                         placeholder="john.doe@example.com"
-                         disabled={false}
-                         {...field}
-                         className="h-12"
-                       />
-                     </FormControl>
-                     <FormDescription>{t("emailDescription")}</FormDescription>
-                   </FormItem>
-                 )}
-               />
-               <FormField
-                 control={form.control}
-                 name="password"
-                 render={({ field }) => (
-                   <FormItem>
-                     <FormLabel>{t("passwordLabel")}</FormLabel>
-                     <FormControl>
-                       <Input
-                         placeholder="********"
-                         type="password"
-                         disabled={false}
-                         {...field}
-                         className="h-12"
-                       />
-                     </FormControl>
-                     <FormDescription>{t("passwordDescription")}</FormDescription>
-                   </FormItem>
-                 )}
-               />
-               <Button className="mt-2 w-full" disabled={false}>
-                 {t("submitButton")}
-               </Button>
-             </form>
-           </Form>
+      {data?.createUser ? (
+        <Alert>
+          <CircleCheck className="size-4" />
+          <AlertTitle>{t("successAlertTitle")}</AlertTitle>
+          <AlertDescription>{t("successAlertDescription")}</AlertDescription>
+        </Alert>
+      ) : (
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-3">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("usernameLabel")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="johndoe"
+                      disabled={loading}
+                      {...field}
+                      className="h-12"
+                    />
+                  </FormControl>
+                  <FormDescription>{t("usernameDescription")}</FormDescription>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("emailLabel")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="john.doe@example.com"
+                      disabled={loading}
+                      {...field}
+                      className="h-12"
+                    />
+                  </FormControl>
+                  <FormDescription>{t("emailDescription")}</FormDescription>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("passwordLabel")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="********"
+                      type="password"
+                      disabled={loading}
+                      {...field}
+                      className="h-12"
+                    />
+                  </FormControl>
+                  <FormDescription>{t("passwordDescription")}</FormDescription>
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="mt-2 w-full" disabled={loading}>
+              {t("submitButton")}
+            </Button>
+          </form>
+        </Form>
+      )}
     </AuthWrapper>
   );
 };

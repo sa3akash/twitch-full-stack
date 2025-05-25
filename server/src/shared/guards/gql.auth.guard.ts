@@ -16,7 +16,6 @@ export class GqlAuthGuard implements CanActivate {
 		const ctx = GqlExecutionContext.create(context)
 		const request = ctx.getContext().req
 		
-		console.log(request.session)
 		if (typeof request.session.userId === 'undefined') {
 			throw new UnauthorizedException('Unathorized')
 		}

@@ -59,7 +59,7 @@ async function bootstrap() {
 	)
 
 	app.enableCors({
-		origin: config.getOrThrow<string>('ALLOWED_ORIGIN').split(','),
+		origin: [config.getOrThrow<string>('ALLOWED_ORIGIN'),'https://studio.apollographql.com'],
 		credentials: true,
 		exposedHeaders: ['set-cookie']
 	})

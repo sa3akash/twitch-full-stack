@@ -21,6 +21,7 @@ interface AuthWrapperProps {
   heading: string;
   backButtonLabel?: string;
   backButtonHref?: string;
+  isLeftOff?: boolean;
 }
 
 const AuthWrapper = ({
@@ -29,6 +30,7 @@ const AuthWrapper = ({
   heading,
   backButtonHref,
   backButtonLabel,
+  isLeftOff = false,
 }: PropsWithChildren<AuthWrapperProps>) => {
   const t = useTranslations("auth");
   const [isClient, setIsClient] = useState(false);
@@ -44,12 +46,16 @@ const AuthWrapper = ({
       className={cn(
         "flex h-full items-center justify-center bg-center bg-cover",
         isSigup
-        ? "bg-[url(/images/bg/signupbg.png)]"
-         : "bg-[url(/images/bg/signinbg.png)]"
+          ? "bg-[url(/images/bg/signupbg.png)]"
+          : "bg-[url(/images/bg/signinbg.png)]"
       )}
     >
       <div className="flex gap-8 justify-between w-full items-center text-white">
-        <div className="flex-1 items-center justify-center hidden lg:flex">
+        <div
+          className={cn("flex-1 items-center justify-center hidden lg:flex", {
+            "lg:hidden": isLeftOff,
+          })}
+        >
           <div className="space-y-6">
             <Icon.logoLight />
             <h3 className="font-semibold text-[16px]">{t("heading")}</h3>
@@ -95,10 +101,21 @@ const AuthWrapper = ({
             <NavToggle />
           </div>
         </div>
-        <div className="flex-1 flex justify-center lg:justify-start h-max">
+        <div
+          className={cn("flex-1 flex justify-center lg:justify-start h-max", {
+            "lg:justify-center": isLeftOff,
+          })}
+        >
           <Card className="max-w-[464px] w-full border-0 ">
             <CardHeader>
-              <CardTitle className="text-3xl tracking-normal">
+              <CardTitle
+                className={cn(
+                  "text-3xl tracking-normal",
+                  {
+                    "text-center text-2xl": isLeftOff,
+                  }
+                )}
+              >
                 {heading}
               </CardTitle>
             </CardHeader>
