@@ -135,4 +135,162 @@ export const Icon = {
       />
     </svg>
   ),
+
+  discover: (props: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={24}
+      height={24}
+      fill="none"
+      {...props}
+    >
+      <path
+        stroke="#808191"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="m8.27 14.952 1.593-5.09 5.089-1.592-1.593 5.09-5.089 1.592Z"
+        clipRule="evenodd"
+      />
+      <circle
+        cx={11.611}
+        cy={11.611}
+        r={9.611}
+        stroke="#808191"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+      />
+    </svg>
+  ),
+  arrowDown: (props: LucideProps) => (
+    <svg
+      {...props}
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M16 10L12 14L8 10"
+        stroke="#808191"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  searchIcon: (props: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={24}
+      height={24}
+      fill="none"
+      {...props}
+    >
+      <path
+        fill="#808191"
+        fillRule="evenodd"
+        d="M11.611 2C6.303 2 2 6.208 2 11.4c0 5.19 4.303 9.399 9.611 9.399 2.27 0 4.357-.77 6.002-2.058l3.124 3.048.083.07c.29.21.701.186.964-.072a.713.713 0 0 0-.002-1.023l-3.087-3.012a9.253 9.253 0 0 0 2.528-6.353C21.223 6.21 16.92 2 11.612 2Zm0 1.448c4.491 0 8.132 3.56 8.132 7.951 0 4.392-3.64 7.952-8.131 7.952S3.48 15.79 3.48 11.399c0-4.391 3.64-7.951 8.131-7.951Z"
+        clipRule="evenodd"
+      />
+    </svg>
+  ),
+  chatIcon: (props: LucideProps) => (
+     <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    fill="none"
+    {...props}
+  >
+    <path
+      stroke="#808191"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.5}
+      d="M12.057 2A10.02 10.02 0 0 0 3.46 6.8a9.986 9.986 0 0 0-.322 9.829l.2.39c.164.308.198.668.095 1-.286.76-.525 1.536-.715 2.324 0 .4.114.629.544.619.76-.168 1.509-.384 2.241-.648a1.48 1.48 0 0 1 .954.058c.277.133.84.476.859.476a10.03 10.03 0 0 0 11.284-1.34 9.99 9.99 0 0 0 2.768-11.004A10.016 10.016 0 0 0 12.057 2v0Z"
+      clipRule="evenodd"
+    />
+    <ellipse
+      cx={7.287}
+      cy={12}
+      stroke="#808191"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.5}
+      rx={0.477}
+      ry={0.476}
+    />
+    <ellipse
+      cx={12.057}
+      cy={12}
+      stroke="#808191"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.5}
+      rx={0.477}
+      ry={0.476}
+    />
+    <ellipse
+      cx={16.826}
+      cy={12}
+      stroke="#808191"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.5}
+      rx={0.477}
+      ry={0.476}
+    />
+  </svg>
+  ),
+  plusIconDark: (props: LucideProps) => (
+    <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    fill="none"
+    {...props}
+  >
+    <path
+      fill="#fff"
+      d="M11.5 12.49h.5a.5.5 0 0 0-.5-.5v.5Zm.5 3.664v.5-.5Zm.5-3.664v-.5a.5.5 0 0 0-.5.5h.5Zm3.666-.5h.5-.5Zm-3.666-.5H12a.5.5 0 0 0 .5.5v-.5ZM12 7.827v-.5.5Zm-.5 3.663v.5a.5.5 0 0 0 .5-.5h-.5Zm-3.667.5h-.5.5Zm3.667 3.663h.5V12.49h-1v3.163h.5Zm.5.5v-.5h-1a1 1 0 0 0 1 1v-.5Zm.5-.5H12v1a1 1 0 0 0 1-1h-.5Zm0-3.163H12v3.163h1V12.49h-.5Zm3.166 0v-.5H12.5v1h3.166v-.5Zm.5-.5h-.5v1a1 1 0 0 0 1-1h-.5Zm-.5-.5v.5h1a1 1 0 0 0-1-1v.5Zm-3.166 0v.5h3.166v-1H12.5v.5Zm0-3.163H12v3.163h1V8.327h-.5Zm-.5-.5v.5h1a1 1 0 0 0-1-1v.5Zm-.5.5h.5v-1a1 1 0 0 0-1 1h.5Zm0 3.163h.5V8.327h-1v3.163h.5Zm-3.167 0v.5H11.5v-1H8.333v.5Zm-.5.5h.5v-1a1 1 0 0 0-1 1h.5Zm.5.5v-.5h-1a1 1 0 0 0 1 1v-.5Zm3.167 0v-.5H8.333v1H11.5v-.5Z"
+      opacity={0.4}
+    />
+    <path
+      stroke="#808191"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.5}
+      d="M16.686 2H7.314C4.048 2 2 4.312 2 7.585v8.83C2 19.688 4.038 22 7.314 22h9.372C19.962 22 22 19.688 22 16.415v-8.83C22 4.312 19.962 2 16.686 2Z"
+      clipRule="evenodd"
+    />
+  </svg>
+  ),
+  notificationIconDark: (props: LucideProps) => (
+    <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    fill="none"
+    {...props}
+  >
+    <path
+      stroke="#808191"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.5}
+      d="M3.5 13.787v-.219a3.6 3.6 0 0 1 .602-1.818 4.87 4.87 0 0 0 1.194-2.314c0-.666 0-1.342.058-2.009C5.654 4.218 8.827 2 11.96 2h.078c3.133 0 6.306 2.218 6.617 5.427.058.667 0 1.343.048 2.009a4.955 4.955 0 0 0 1.193 2.323c.365.538.573 1.164.602 1.81v.209c.022.87-.278 1.719-.844 2.39a4.505 4.505 0 0 1-2.853 1.37c-3.195.343-6.419.343-9.614 0a4.554 4.554 0 0 1-2.853-1.37 3.604 3.604 0 0 1-.834-2.38Z"
+      clipRule="evenodd"
+    />
+    <path
+      stroke="#808191"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.5}
+      d="M9.555 20.852a3.088 3.088 0 0 0 4.288.505c.196-.146.372-.316.524-.505"
+    />
+  </svg>
+  ),
 };

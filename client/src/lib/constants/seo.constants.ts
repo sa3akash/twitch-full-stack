@@ -1,9 +1,9 @@
 export const NO_INDEX_PAGE = { robots: { index: false, follow: false } }
 
-export const SITE_NAME = 'TeaStream'
+export const SITE_NAME = 'SA2Stream'
 
 export const SITE_DESCRIPTION =
-	'TeaStream is a live streaming platform that connects streamers and viewers. Share your hobbies and join the TeaStream community!'
+	'SA2Stream is a live streaming platform that connects streamers and viewers. Share your hobbies and join the TeaStream community!'
 
 export const SITE_KEYWORDS = [
 	'TeaStream',

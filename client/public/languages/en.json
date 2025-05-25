@@ -1,9 +1,7 @@
 {
 	"layout": {
 		"header": {
-			"logo": {
-				"platform": "Streaming platform"
-			},
+			"discover": "Browse",
 			"headerMenu": {
 				"login": "Sign In",
 				"register": "Sign Up",
@@ -21,7 +19,7 @@
 				}
 			},
 			"search": {
-				"placeholder": "Search"
+				"placeholder": "Search Everything..."
 			}
 		},
 		"sidebar": {

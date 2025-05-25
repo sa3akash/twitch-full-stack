@@ -16,7 +16,7 @@ export default async function NotFoundPage() {
 				<p className='mt-3 text-muted-foreground'>{t('description')}</p>
 				<Link
 					href='/'
-					className={cn(buttonVariants({variant:'secondary'}),'mt-5 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3')}
+					className={cn(buttonVariants(),'mt-5 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3')}
 				>
 					{t('backToHome')}
 				</Link>

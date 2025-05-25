@@ -7,17 +7,22 @@ import { useTranslations } from "next-intl";
 import { useVerifyAccountMutation } from "@/graphql/generated/output";
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { useCurrent } from "@/hooks/useCurrent";
 
 const VerifyAccountForm = () => {
   const t = useTranslations("auth.verify");
+  const {auth} = useAuth()
 
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token") ?? "";
+  const { refetch } = useCurrent();
 
   const [verify] = useVerifyAccountMutation({
     onCompleted() {
-      // auth()
+      auth()
+      refetch()
       toast.success(t("successMessage"));
       router.push("/dashboard/settings");
     },
@@ -33,7 +38,7 @@ const VerifyAccountForm = () => {
         data: { token },
       },
     });
-  }, [token]);
+  }, [token, verify]);
 
   return (
     <AuthWrapper heading={t("heading")} isLeftOff={true}>

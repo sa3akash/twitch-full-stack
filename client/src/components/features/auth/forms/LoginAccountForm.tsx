@@ -26,12 +26,16 @@ import {
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
+import { useAuth } from "@/hooks/useAuth";
+import { useCurrent } from "@/hooks/useCurrent";
 
 const LoginAccountForm = () => {
   const t = useTranslations("auth.login");
   const [isShowTwoFactor, setIsShowTwoFactor] = useState(false);
 
   const router = useRouter();
+  const { auth } = useAuth();
+  const { refetch } = useCurrent();
 
   const form = useForm<TypeLoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -46,7 +50,8 @@ const LoginAccountForm = () => {
       if (data.login.message) {
         setIsShowTwoFactor(true);
       } else {
-        // auth()
+        auth();
+        refetch();
         toast.success(t("successMessage"));
         router.push("/dashboard/settings");
       }
@@ -124,14 +129,15 @@ const LoginAccountForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center justify-between mb-0">{t("passwordLabel")}
+                    <FormLabel className="flex items-center justify-between mb-0">
+                      {t("passwordLabel")}
 
                       <Link
-                  href="/account/recovery"
-                  className="inline-block mb-1 text-sm hover:underline text-muted-foreground"
-                >
-                  Forgot Password?
-                </Link>
+                        href="/account/recovery"
+                        className="inline-block mb-1 text-sm hover:underline text-muted-foreground"
+                      >
+                        Forgot Password?
+                      </Link>
                     </FormLabel>
                     <FormControl>
                       <Input
