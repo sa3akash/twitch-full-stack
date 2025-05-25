@@ -124,7 +124,15 @@ const LoginAccountForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("passwordLabel")}</FormLabel>
+                    <FormLabel className="flex items-center justify-between mb-0">{t("passwordLabel")}
+
+                      <Link
+                  href="/account/recovery"
+                  className="inline-block mb-1 text-sm hover:underline text-muted-foreground"
+                >
+                  Forgot Password?
+                </Link>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="********"
@@ -140,14 +148,6 @@ const LoginAccountForm = () => {
                   </FormItem>
                 )}
               />
-              <div className="flex justify-end mt-2">
-                <Link
-                  href="/account/recovery"
-                  className="inline-block text-sm text-right hover:underline text-muted-foreground"
-                >
-                  Forgot Password?
-                </Link>
-              </div>
             </>
           )}
 
