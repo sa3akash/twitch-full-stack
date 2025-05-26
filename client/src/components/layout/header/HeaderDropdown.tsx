@@ -22,29 +22,31 @@ const HeaderDropdown = () => {
   const t = useTranslations("layout.header.headerMenu.profileMenu");
 
   const { user, isLoadingProfile } = useCurrent();
-const router = useRouter()
+  const router = useRouter();
 
-	const { exit } = useAuth()
+  const { exit } = useAuth();
 
   const [logout] = useUserLogoutMutation({
-    onCompleted: ()=>{
-        exit()
-			toast.success(t('successMessage'))
-			router.push('/account/login')
+    onCompleted: () => {
+      exit();
+      toast.success(t("successMessage"));
+      router.push("/account/login");
     },
-    onError: ()=>{
-        toast.error(t('errorMessage'))
-    }
-  })
+    onError: () => {
+      toast.error(t("errorMessage"));
+    },
+  });
 
   return isLoadingProfile || !user ? (
-    <Loader />
+    <div className="size-9 flex justify-center items-center animate-spin">
+      <Loader />
+    </div>
   ) : (
     <DropdownMenu>
-      <DropdownMenuTrigger className="outline-none focus:outline-none">
+      <DropdownMenuTrigger className="outline-none focus:outline-none cursor-pointer">
         <ChannelAvatar channel={user} />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[230px]">
+      <DropdownMenuContent align="end" className="w-[230px]" sideOffset={20}>
         <DropdownMenuItem className="flex gap-x-3 items-center">
           <ChannelAvatar channel={user} />
           <h2 className="font-medium">{user.username}</h2>
@@ -65,7 +67,7 @@ const router = useRouter()
           </DropdownMenuItem>
         </Link>
 
-        <DropdownMenuItem onClick={()=>logout()}>
+        <DropdownMenuItem onClick={() => logout()}>
           <LogOut className="mr-2 size-2" />
           {t("logout")}
         </DropdownMenuItem>
