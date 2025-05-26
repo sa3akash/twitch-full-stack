@@ -7,6 +7,8 @@ const HomePage = () => {
     <div className="">
       <Button className="">Click me</Button>
       <ModeToggle />
+    <div className="h-[600px]"></div>
+    
     </div>
   );
 };
